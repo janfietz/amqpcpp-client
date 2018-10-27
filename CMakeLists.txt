@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
 
 # Call cmake with -D TESTS=ON to set this flag to true.
 option(TESTS "build tests" OFF)
 
-project(sample_project CXX C)
+project(amqpcpp-client CXX C)
 
 # Core and main are split. This allows us to link core to main and tests.
 
@@ -20,7 +20,7 @@ target_link_libraries(main
   core)
 
 # Add flags.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14")
 
 if(TESTS)
 
