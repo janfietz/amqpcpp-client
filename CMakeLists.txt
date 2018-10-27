@@ -5,6 +5,7 @@ option(TESTS "build tests" OFF)
 
 project(amqpcpp-client CXX C)
 
+add_subdirectory(third-party/boost-cmake) 
 # Core and main are split. This allows us to link core to main and tests.
 
 # Core library. *.cpp should be added here.
@@ -16,11 +17,17 @@ add_executable(main
   ./src/main.cpp)
 
 # Link core to main.
-target_link_libraries(main
+target_link_libraries(main PUBLIC
+  Boost::boost
+  Boost::system
+  Boost::thread
   core)
 
 # Add flags.
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14")
+
+
+add_subdirectory(third-party/AMQP-CPP)
 
 if(TESTS)
 
