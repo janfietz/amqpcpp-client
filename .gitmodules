@@ -1,3 +1,6 @@
 [submodule "third-party/googletest"]
 	path = third-party/googletest
 	url = https://github.com/google/googletest
+[submodule "third-party/AMQP-CPP"]
+	path = third-party/AMQP-CPP
+	url = https://github.com/CopernicaMarketingSoftware/AMQP-CPP.git
