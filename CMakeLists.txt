@@ -4,8 +4,16 @@ cmake_minimum_required(VERSION 3.5.1 FATAL_ERROR)
 option(TESTS "build tests" OFF)
 
 project(amqpcpp-client CXX C)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -v -Wall -std=c++14")
 
-add_subdirectory(third-party/boost-cmake) 
+
+add_subdirectory(third-party/boost-cmake)
+
+
+SET(AMQP-CPP_LINUX_TCP ON CACHE BOOL "Build libfoo shared library")
+add_subdirectory(third-party/AMQP-CPP)
+include_directories(third-party/AMQP-CPP/include)
+
 # Core and main are split. This allows us to link core to main and tests.
 
 # Core library. *.cpp should be added here.
@@ -17,17 +25,16 @@ add_executable(main
   ./src/main.cpp)
 
 # Link core to main.
-target_link_libraries(main PUBLIC
+set_target_properties(main PROPERTIES LINK_FLAGS "-Wl,--no-as-needed")
+target_link_libraries(main
   Boost::boost
   Boost::system
   Boost::thread
-  core)
-
-# Add flags.
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14")
-
-
-add_subdirectory(third-party/AMQP-CPP)
+  pthread
+  dl
+  ssl
+  amqpcpp  
+  )
 
 if(TESTS)
 
@@ -51,6 +58,6 @@ if(TESTS)
     pthread
     gtest
     gtest_main
-    core)
+    )
 
 endif()
