@@ -5,6 +5,7 @@ option(TESTS "build tests" OFF)
 
 project(amqpcpp-client CXX C)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++14")
+set(CMAKE_CXX_FLAGS_DEBUG  "-g")
 
 
 add_subdirectory(third-party/boost-cmake)
