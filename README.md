@@ -1,7 +1,10 @@
-# AMQP-CPP Client
+# AMQP-CPP Client 
+
+[![Build Status](https://travis-ci.org/janfietz/amqpcpp-client.svg?branch=master)](https://travis-ci.org/janfietz/amqpcpp-client)
 
 Simple C++14 project to test [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP) functionality.
 
+## Build using cmake
 ## Requirements
 
 - `git`
@@ -19,7 +22,7 @@ cd rabbitmq
 docker-compose uo
 ```
 
-## Managment plugin
+### Managment plugin
 
 Open [http://localhost:15672/]
 
