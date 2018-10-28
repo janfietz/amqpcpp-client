@@ -22,12 +22,27 @@ int main(int argc, char **argv)
   AMQP::TcpChannel channel(&connection);
 
   // create a temporary queue
-  channel.declareQueue(AMQP::exclusive).onSuccess([&connection](const std::string &name, uint32_t messagecount, uint32_t consumercount) {
+  channel.declareQueue(AMQP::exclusive).onSuccess(
+    [&channel](const std::string& name, uint32_t messagecount, uint32_t consumercount) {
     // report the name of the temporary queue
     std::cout << "declared queue " << name << std::endl;
 
-    // now we can close the connection
-    connection.close();
+    channel.consume(name).onSuccess([&name](){
+      std::cout << "Start consuming msg from queue " << name << std::endl;
+    }
+    ).onSuccess([](const std::string& tag){
+      std::cout << "Start consuming msg from queue " << tag << std::endl;
+    }).onReceived([&channel](auto const& message, auto deliveryTag, auto redelivered){
+      std::cout << "Receive msg " << deliveryTag << std::endl;
+      channel.ack(deliveryTag);
+    }).onError([](auto const error){
+      std::cout << "Error consuming " << error << std::endl;
+    }).onFinalize([](){
+      std::cout << "Finalize consuming " << std::endl;}
+    );
+  }).onError([&connection](auto const error) {
+    // report the name of the temporary queue
+    std::cout << "declared queue failed " << error << std::endl;
   });
 
   // run the handler
