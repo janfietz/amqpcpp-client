@@ -2,6 +2,8 @@
 *.swp
 *~
 .ycm_extra_conf.*
+.vscode/
 
 # project
 /build
+
