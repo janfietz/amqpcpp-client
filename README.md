@@ -1,4 +1,4 @@
-# C++ Boilerplate
+# AMQP-CPP Client
 
 Simple C++14 project to test [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP) functionality.
 
